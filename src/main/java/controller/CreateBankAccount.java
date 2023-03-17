@@ -47,19 +47,18 @@ public class CreateBankAccount extends HttpServlet {
 			BankDao bankDao = new BankDao();
 			bankDao.save(account);
 
-			List<BankAccount> list2 = list;
-			list2.add(account);
+			list.add(account);
 
-			customer.setAccounts(list2);
+			customer.setAccounts(list);
 
 			CustomerDao customerDao = new CustomerDao();
 			customerDao.update(customer);
 
-			resp.getWriter().print("<h1>Account Created Successfully</h1>");
+			resp.getWriter().print("<h1>Account Created Successfully wait for Management to approve your account</h1>");
+			req.getRequestDispatcher("Login.html").include(req, resp);
 		} else {
 			resp.getWriter().print("<h1>" + banktype + " Account Already Exists</h1>");
 			req.getRequestDispatcher("CustomerHome.html").include(req, resp);
-
 		}
 	}
 }

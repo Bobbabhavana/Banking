@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -17,6 +19,23 @@ public class BankDao
 	{
 		transaction.begin();
 		manager.persist(account);
+		transaction.commit();
+	}
+	
+	public List<BankAccount> fetchAll()
+	{
+		return manager.createQuery("select x from BankAccount x").getResultList();
+	}
+	
+	public BankAccount find(long mob)
+	{
+		return manager.find(BankAccount.class, mob);
+	}
+	
+	public void update(BankAccount account)
+	{
+		transaction.begin();
+		manager.merge(account);
 		transaction.commit();
 	}
 }

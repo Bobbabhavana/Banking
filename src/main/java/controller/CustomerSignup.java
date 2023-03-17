@@ -41,6 +41,7 @@ public class CustomerSignup extends HttpServlet {
 				customer.setEmail(email);
 				customer.setMobile(mobile);
 				dao.save(customer);
+				
 				Customer customer2 = dao.check(email).get(0);
 
 				resp.getWriter().print("<h1>Account Created Successfully</h1>");
