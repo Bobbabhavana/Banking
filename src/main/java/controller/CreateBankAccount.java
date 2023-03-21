@@ -38,9 +38,12 @@ public class CreateBankAccount extends HttpServlet {
 			account.setType(banktype);
 
 			if (banktype.equals("saving"))
+			{
 				account.setAclimit(10000);
-			else
+			}
+			else {
 				account.setAclimit(50000);
+			}
 
 			account.setCustomer(customer);
 
