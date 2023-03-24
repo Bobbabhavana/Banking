@@ -10,6 +10,15 @@
 <title>Check Balance</title>
 </head>
 <body>
+
+<%Customer customer1 =(Customer)session.getAttribute("customer"); 
+if(customer1==null)
+{
+	response.getWriter().print("<h1>Session Expired Login Again</h1>");
+	request.getRequestDispatcher("Login.html").include(request, response);
+}
+else{
+%>
 <%
 long acno = (long) session.getAttribute("acno");
 BankDao bankDao = new BankDao();
@@ -21,5 +30,6 @@ Customer customer=account.getCustomer();
 <h1>Your <%=account.getType() %> account balance is <%=account.getAmount() %></h1>
 <br><br>
 <a href="AccountHome.jsp"><button>Back</button></a>
+<%} %>
 </body>
 </html>

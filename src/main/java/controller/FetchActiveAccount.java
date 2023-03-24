@@ -19,6 +19,12 @@ public class FetchActiveAccount extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Customer customer = (Customer) req.getSession().getAttribute("customer");
 
+		if(customer==null)
+		{
+			resp.getWriter().print("<h1>Session Expired Login Again</h1>");
+			req.getRequestDispatcher("Login.html").include(req, resp);
+		}
+		else {
 		List<BankAccount> list = customer.getAccounts();
 
 		List<BankAccount> list2 = new ArrayList<BankAccount>();
@@ -32,6 +38,7 @@ public class FetchActiveAccount extends HttpServlet {
 		req.setAttribute("list", list2);
 		req.getRequestDispatcher("Accounts.jsp").include(req, resp);
 
+	}
 	}
 }
 

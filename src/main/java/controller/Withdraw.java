@@ -13,11 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import dao.BankDao;
 import dto.BankAccount;
 import dto.BankTransaction;
+import dto.Customer;
 
 @WebServlet("/withdraw")
 public class Withdraw extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Customer customer = (Customer) req.getSession().getAttribute("customer");
+
+		if(customer==null)
+		{
+			resp.getWriter().print("<h1>Session Expired Login Again</h1>");
+			req.getRequestDispatcher("Login.html").include(req, resp);
+		}
+		else {
+		
 		double amt = Double.parseDouble(req.getParameter("amt"));
 
 		long acno = (long) req.getSession().getAttribute("acno");
@@ -51,6 +61,6 @@ public class Withdraw extends HttpServlet {
 				resp.getWriter().print("<h1>Amount withdrawed Successfully</h1>");
 				req.getRequestDispatcher("AccountHome.jsp").include(req, resp);
 			}
-		}
+		}}
 	}
 }
